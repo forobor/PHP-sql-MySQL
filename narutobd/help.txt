@@ -1,0 +1,74 @@
+                //вывод 1 параметра на экран
+                require_once 'connection.php';
+                $link = mysqli_connect($host, $user, $password, $database)
+                or die("Error " . mysqli_error($link));
+                $link->query( "SET CHARSET utf8" );
+                $query ="SELECT NAME FROM shinobi WHERE ID=1";
+                $result=mysqli_query($link,$query) or die("Error " . mysqli_error($link));
+                $row=mysqli_fetch_row($result);
+                if($result){
+                    echo "got it"."<br>";
+                    echo $row[0];
+                }
+
+                mysqli_close($link);
+
+
+
+if($result)
+{
+    echo "<ul>";
+    while ($row = mysqli_fetch_row($result)) {
+        echo "<li>$row[0]</li>";
+    }
+    echo "</ul>";
+
+    mysqli_free_result($result);
+}
+
+
+ГОФНО ЕБАННОЕ НИХУЯ НЕ РАБОТАЕТ БЛЯТЬ СУКА
+        <select name="shinobi">
+            <?php
+
+                require_once 'connection.php';
+                $link = mysqli_connect($host, $user, $password, $database)
+                or die("Error " . mysqli_error($link));
+                $link->query( "SET CHARSET utf8" );
+                $query ="SELECT NAME FROM shinobi WHERE ID=1";
+                $result=mysqli_query($link,$query) or die("Error " . mysqli_error($link));
+                $row=mysqli_fetch_row($result);
+                if($result){
+                    echo "got it"."<br>";
+                        while($row=mysqli_fetch_row($result)) {
+                            echo $row[0];
+                            ?><option value = "<?php $row[0]; ?>"><?php $row[0]; ?></option ><?php
+                            }
+                }
+
+                mysqli_close($link);
+
+            ?>
+        </select>
+
+
+
+            /* вывод id и имени
+            require_once 'connection.php';
+            $link = mysqli_connect($host, $user, $password, $database)
+            or die("Error " . mysqli_error($link));
+            $link->query( "SET CHARSET utf8" );
+            $query ="SELECT ID, NAME FROM shinobi";
+            $result=mysqli_query($link,$query) or die("Error " . mysqli_error($link));
+            if($result){
+                echo "got it"."<br>";
+                $i=0;
+                while($row=mysqli_fetch_assoc($result)) {
+                    echo $row['ID'] . " ";
+                    echo $row['NAME'] . " ";
+                }
+
+            }
+
+            mysqli_close($link);
+            */
