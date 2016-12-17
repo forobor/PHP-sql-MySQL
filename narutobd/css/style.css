@@ -1,12 +1,17 @@
 body{
     background-image: url("back.jpg");
 }
+
 #wrapper{
     margin: 0 auto;
     border: 10px outset #e8d3ce;
     width: 800px;
     background-color: #fff;
 }
+.enter{
+    text-align: right;
+}
+
 .header{
     width: 800px;
 }
@@ -16,7 +21,6 @@ menu{
 }
 
 menu ul li{
-
     display: inline;
     margin-right:50px;
     font-size: 25px;
@@ -26,20 +30,25 @@ main{
     background-color: greenyellow;
     margin-top:0;
     padding: 10px;
+    height: 800px;
 }
+
+.edit{
+    float:left;
+}
+
 .getimg{
     max-width: 100%;
     max-height: 100%;
-
 }
+
 
 .imgblock{
     width: 300px;
-    height: 300px;
+    height: 400px;
     float:left;
     margin-right: 10px;
 }
-
 
 .hellotext{
     text-align: center;
@@ -48,5 +57,4 @@ main{
 footer{
     background-color:  #e8d3ce;
     text-align: center;
-    float: none;
 }

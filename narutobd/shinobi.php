@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css"
+    <link rel="stylesheet" href="css/style.css">
     <title></title>
 </head>
 <body>
+<form class="enter" method="get" action="shinobi.php">
+    Вход для админа:
+    <label>Логин: <input name="login"></label>
+    <label>Пароль: <input type="password" name="pass"></label>
+    <input type="submit">
+</form>
 <div id="wrapper">
     <header>
         <a href="index.html"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
@@ -36,13 +42,18 @@
 
         }
         mysqli_close($link);
+
         ?>
-            <input type="submit" value="Получить"><br/><br/>
+            <input type="submit" value="Получить">
         </form>
+        <form method='get' action='insertshin.php'>
+            <input type='submit' name='insertshin' value='Вставить'>
+        </form>
+        <br/><br/>
+
 <?php
 if(isset($_GET['name'])) {
     $id = $_GET['name'];
-
 
     require_once 'connection.php'; // подключаем скрипт
 
@@ -53,6 +64,7 @@ if(isset($_GET['name'])) {
 
     $link->query("SET CHARSET utf8");
 
+
 // выполняем операции с базой данных
     $query = "SELECT shinobi.NAME, SURNAME, village.NAME AS VILLAGE, bidju.NAME AS BIDJU, shinobi.DESCRIPTION
 FROM shinobi, village, bidju
@@ -60,10 +72,21 @@ where shinobi.ID = $id and village.ID= shinobi.VILLAGE and bidju.ID=shinobi.BIDJ
     $result = mysqli_query($link, $query) or die("Error " . mysqli_error($link));
 
     if ($result) {
+        echo "<div class='edit'>
+                     <form method='get' action='updateshin.php'>
+                        <input type='hidden' name='id' value='$id'>
+                        <input type='submit' name='updateshin' value='Обновить'>
+                     </form>
+                     <form method='get' action='delete.php'>
+                        <input type='hidden' name='id' value='$id'>
+                        <input type='hidden' name='bd' value='shinobi'>
+                        <input type='submit' name='delete' value='Удалить'>
+                     </form>
+                 </div>";
         while ($row = $result->fetch_assoc()) {
             // Оператором echo выводим на экран поля таблицы name_blog и text_blog
             $image=$row['NAME'];
-            echo "<p class='getcont'>";
+
             echo "<div class='imgblock'><img class=getimg src='images/$image.jpg'></div>";
             echo "Имя Джинчуурики: ".$row['NAME'] . " ";
             echo $row['SURNAME'] . " <br/><br/>";
@@ -71,9 +94,10 @@ where shinobi.ID = $id and village.ID= shinobi.VILLAGE and bidju.ID=shinobi.BIDJ
             echo "Заточенный демон: ".$row['BIDJU']."<br/<br/>";
             echo "<br>";
             echo $row['DESCRIPTION'] . "<br/>";
-            echo "</p>";
+
 
         }
+
     }
 
 // закрываем подключение
