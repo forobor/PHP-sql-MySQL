@@ -12,10 +12,10 @@
 
     <menu>
         <ul>
-            <li><a href="shinobi.php">Джинчуурики</a></li>
-            <li><a href="bidju.php">Биджу</a></li>
-            <li><a href="villages.php">Деревни</a></li>
-            <li><a href="kage.php">Каге</a></li>
+            <li><a href="shinobi.php">Джинчуурики</a> </li><li>|</li>
+            <li><a href="bidju.php">Биджу</a> </li><li>|</li>
+            <li><a href="villages.php">Деревни</a> </li><li>|</li>
+            <li><a href="kage.php">Каге</a> </li>
         </ul>
     </menu>
     <main>
@@ -30,6 +30,9 @@ if(isset($_POST['id']) and isset($_POST['bd'])){
 
     $query ="DELETE FROM $bd WHERE id = '$id'";
     $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+
+    if($result)
+        echo "<span style='color:blue;'>Данные удалены</span>";
 
     mysqli_close($link);
     // перенаправление на скрипт index.php

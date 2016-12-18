@@ -12,10 +12,10 @@
 
     <menu>
         <ul>
-            <li><a href="shinobi.php">Джинчуурики</a></li>
-            <li><a href="bidju.php">Биджу</a></li>
-            <li><a href="villages.php">Деревни</a></li>
-            <li><a href="kage.php">Каге</a></li>
+            <li><a href="shinobi.php">Джинчуурики</a> </li><li>|</li>
+            <li><a href="bidju.php">Биджу</a> </li><li>|</li>
+            <li><a href="villages.php">Деревни</a> </li><li>|</li>
+            <li><a href="kage.php">Каге</a> </li>
         </ul>
     </menu>
     <main>
@@ -57,8 +57,7 @@
         <input type="text" name="namesh" value="NULL"></p>
     <p>Фамилия: <br>
         <input type="text" name="surname" value="NULL"></p>
-    <p>id деревни: <br>
-        <?php
+    <p>Деревня: <br><?php
         require_once 'connection.php';
         $link = mysqli_connect($host, $user, $password, $database)
         or die("Error " . mysqli_error($link));
@@ -76,7 +75,7 @@
         ?>
         <input type='radio' name='idvillage' value="NULL">NULL
         </p>
-    <p>id биджу: <br>
+    <p>Биджу: <br>
         <?php
         require_once 'connection.php';
         $link = mysqli_connect($host, $user, $password, $database)

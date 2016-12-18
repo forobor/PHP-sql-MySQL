@@ -19,13 +19,17 @@
 
     <menu>
         <ul>
-            <li><a href="shinobi.php">Джинчуурики</a></li>
-            <li><a href="bidju.php">Биджу</a></li>
-            <li><a href="villages.php">Деревни</a></li>
-            <li><a href="kage.php">Каге</a></li>
+            <li><a href="shinobi.php">Джинчуурики</a> </li><li>|</li>
+            <li><a href="bidju.php">Биджу</a> </li><li>|</li>
+            <li><a href="villages.php">Деревни</a> </li><li>|</li>
+            <li><a href="kage.php">Каге</a> </li>
         </ul>
     </menu>
     <main>
+        <form method='get' action='insertkage.php'>
+            <input style='float:left' type='submit' name='insertkage' value='Вставить'>
+        </form>
+
         <form action="kage.php" method="get">
             <?php
             require_once 'connection.php';
@@ -62,21 +66,33 @@
 // выполняем операции с базой данных
             $query = "select kage.NAME, kage.NUMBER, RANK, village.SECOND_NAME, kage.DESCRIPTION
 from kage, village
-where kage.ID=$id and village.ID=kage.ID";
+where kage.ID=$id and kage.VILLAGE=village.ID
+union
+select kage.NAME, kage.NUMBER, RANK, 'NULL', kage.DESCRIPTION
+from kage, village
+where kage.ID=$id and kage.VILLAGE IS NULL";
             $result = mysqli_query($link, $query) or die("Error " . mysqli_error($link));
 
             if ($result) {
+                echo "<div class='edit'>
+                     <form method='get' action='updatekage.php'>
+                        <input type='hidden' name='id' value='$id'>
+                        <input type='submit' name='updatekage' value='Обновить'>
+                     </form>
+                     <form method='get' action='delete.php'>
+                        <input type='hidden' name='id' value='$id'>
+                        <input type='hidden' name='bd' value='kage'>
+                        <input type='submit' name='delete' value='Удалить'>
+                     </form>
+                 </div><br>";
                 while ($row = $result->fetch_assoc()) {
                     // Оператором echo выводим на экран поля таблицы name_blog и text_blog
                     $image=$row['NAME'];
-                    echo "<p class='getcont'>";
                     echo "<div class='imgblock'><img class='getimg' src='images/$image.jpg'></div>";
                     echo "Имя Каге: ".$row['NAME'] . " "."<br><br>";
                     echo "Звание: ".$row['NUMBER']."-й ".$row['RANK'] . " <br/><br/>";
                     echo "Деревня: ".$row['SECOND_NAME'] . "<br/><br/>";
                     echo $row['DESCRIPTION'] . "<br/>";
-                    echo "</p>";
-
                 }
             }
 
