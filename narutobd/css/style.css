@@ -13,6 +13,8 @@ input:active{
     border-color: #333;
     border-style: inset;
 }
+
+
 a:hover{
     color: #ffba72;  }
 

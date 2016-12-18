@@ -12,9 +12,12 @@
     <label>Пароль: <input type="password" name="pass"></label>
     <input type="submit">
 </form>
+<form class="enter" method="get" action="index.php">
+    <input type="submit" name ='destroy' value="Выйти">
+</form>
 <div id="wrapper">
     <header>
-        <a href="index.html"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
+        <a href="index.php"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
     </header>
 
     <menu>
@@ -26,10 +29,15 @@
         </ul>
     </menu>
     <main>
-        <form method='get' action='insertvillage.php'>
-            <input style='float:left' type='submit' name='insertvillage' value='Вставить'>
-        </form>
-        <form action="villages.php" method="get">
+        <?php
+        session_start();
+        if($_SESSION['name']=='admin') {
+            echo "<form method = 'get' action = 'insertvillage.php' >
+            <input style = 'float:left' type = 'submit' name = 'insertvillage' value = 'Вставить' >
+             </form >";
+        }
+        ?>
+             <form action = "villages.php" method = "get" >
             <?php
             require_once 'connection.php';
             $link = mysqli_connect($host, $user, $password, $database)
@@ -73,7 +81,8 @@ where village.ID=$id and village.KAGE IS NULL";
             $result = mysqli_query($link, $query) or die("Error " . mysqli_error($link));
 
             if ($result) {
-                echo "<div class='edit'>
+                if($_SESSION['name']=='admin') {
+                    echo "<div class='edit'>
                      <form method='get' action='updatevillage.php'>
                         <input type='hidden' name='id' value='$id'>
                         <input type='submit' name='updatevillage' value='Обновить'>
@@ -84,6 +93,7 @@ where village.ID=$id and village.KAGE IS NULL";
                         <input type='submit' name='delete' value='Удалить'>
                      </form>
                  </div><br>";
+                }
                 while ($row = $result->fetch_assoc()) {
                     // Оператором echo выводим на экран поля таблицы name_blog и text_blog
                     $image=$row['NAME'];

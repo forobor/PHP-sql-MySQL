@@ -6,15 +6,19 @@
     <title></title>
 </head>
 <body>
-<form class="enter" method="get" action="shinobi.php">
+<form class="enter" method="get" action="enter.php">
     Вход для админа:
     <label>Логин: <input name="login"></label>
     <label>Пароль: <input type="password" name="pass"></label>
     <input type="submit">
-</form>
+    </form>
+    <form class="enter" method="get" action="index.php">
+        <input type="submit" name ='destroy' value="Выйти">
+    </form>
+
 <div id="wrapper">
     <header>
-        <a href="index.html"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
+        <a href="index.php"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
     </header>
 
     <menu>
@@ -27,9 +31,14 @@
     </menu>
     <main>
 
-        <form method='get' action='insertshin.php'>
-            <input style='float:left' type='submit' name='insertshin' value='Вставить'>
-        </form>
+        <?php
+        session_start();
+            if($_SESSION['name']=='admin') {
+                echo "<form method='get' action='insertshin.php'>
+                <input  style='float:left' type='submit' name='insertshin' value='Вставить'>
+            </form>";
+            }
+        ?>
 
         <form action="shinobi.php" method="get">
         <?php
@@ -91,7 +100,8 @@ where shinobi.ID = $id and shinobi.VILLAGE is NULL and shinobi.BIDJU is NULL";
 
 
     if ($result) {
-        echo "<div class='edit'>
+        if($_SESSION['name']=='admin') {
+            echo "<div class='edit'>
                      <form method='get' action='updateshin.php'>
                         <input type='hidden' name='id' value='$id'>
                         <input type='submit' name='updateshin' value='Обновить'>
@@ -102,6 +112,7 @@ where shinobi.ID = $id and shinobi.VILLAGE is NULL and shinobi.BIDJU is NULL";
                         <input type='submit' name='delete' value='Удалить'>
                      </form>
                  </div><br>";
+        }
         while ($row = $result->fetch_assoc()) {
 
             $image=$row['NAME'];

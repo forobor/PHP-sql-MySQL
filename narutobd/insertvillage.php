@@ -7,7 +7,7 @@
 <body>
 <div id="wrapper">
     <header>
-        <a href="index.html"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
+        <img class="header" src="images/header.jpg" alt="альтернативный текст">
     </header>
 
     <menu>

@@ -12,9 +12,12 @@
     <label>Пароль: <input type="password" name="pass"></label>
     <input type="submit">
 </form>
+<form class="enter" method="get" action="index.php">
+    <input type="submit" name ='destroy' value="Выйти">
+</form>
 <div id="wrapper">
     <header>
-        <a href="index.html"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
+        <a href="index.php"><img class="header" src="images/header.jpg" alt="альтернативный текст"></a>
     </header>
 
     <menu>
@@ -26,9 +29,14 @@
         </ul>
     </menu>
     <main>
-        <form method='get' action='insertkage.php'>
-            <input style='float:left' type='submit' name='insertkage' value='Вставить'>
-        </form>
+        <?php
+        session_start();
+        if($_SESSION['name']=='admin') {
+            echo "<form method = 'get' action = 'insertkage.php' >
+            <input style = 'float:left' type = 'submit' name = 'insertkage' value = 'Вставить' >
+        </form >";
+        }
+        ?>
 
         <form action="kage.php" method="get">
             <?php
@@ -74,7 +82,8 @@ where kage.ID=$id and kage.VILLAGE IS NULL";
             $result = mysqli_query($link, $query) or die("Error " . mysqli_error($link));
 
             if ($result) {
-                echo "<div class='edit'>
+                if($_SESSION['name']=='admin') {
+                    echo "<div class='edit'>
                      <form method='get' action='updatekage.php'>
                         <input type='hidden' name='id' value='$id'>
                         <input type='submit' name='updatekage' value='Обновить'>
@@ -85,6 +94,7 @@ where kage.ID=$id and kage.VILLAGE IS NULL";
                         <input type='submit' name='delete' value='Удалить'>
                      </form>
                  </div><br>";
+                }
                 while ($row = $result->fetch_assoc()) {
                     // Оператором echo выводим на экран поля таблицы name_blog и text_blog
                     $image=$row['NAME'];
